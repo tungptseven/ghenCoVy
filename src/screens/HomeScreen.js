@@ -1,10 +1,60 @@
-import React from 'react'
+import React, { useState, Component, useEffect } from 'react'
 import { View, Text, StyleSheet, ScrollView } from 'react-native'
 import Entypo from 'react-native-vector-icons/Entypo'
 import ChartView from '../components/Home/ChartView'
 import CaseView from '../components/Home/CaseView'
+import axios from 'axios'
+import NumberFormat from 'react-number-format'
 
 const HomeScreen = () => {
+  const [data, setData] = useState({})
+  const [isLoading, setIsLoading] = useState(true)
+  let mockData = {
+    "Global": {
+      "NewConfirmed": 100282,
+      "TotalConfirmed": 1162857,
+      "NewDeaths": 5658,
+      "TotalDeaths": 63263,
+      "NewRecovered": 15405,
+      "TotalRecovered": 230845
+    },
+    "Countries": []
+  }
+
+  const fetchData = () => {
+    if (isLoading) {
+      axios.get(`https://api.covid19api.com/summary`)
+        // axios.get(`https://5ee067fa9ed06d001696dec3.mockapi.io/api/v1/summary`)
+        .then(res => {
+          setData(res.data.Global)
+          console.log(data)
+          setIsLoading(false)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    }
+    // setData({
+    //   "Global": {
+    //     "NewConfirmed": 100282,
+    //     "TotalConfirmed": 1162857,
+    //     "NewDeaths": 5658,
+    //     "TotalDeaths": 63263,
+    //     "NewRecovered": 15405,
+    //     "TotalRecovered": 230845
+    //   },
+    //   "Countries": []
+    // }, () => {
+    //   console.log(data);
+
+    // })
+
+  }
+
+  // useEffect(() => {
+  //   fetchData()
+  // }, [])
+
   return (
     <ScrollView style={styles.flex}>
       <View style={styles.container}>
@@ -13,17 +63,24 @@ const HomeScreen = () => {
           <View style={styles.headerContent}>
             <Text style={styles.headerDate}>Mar 22, 2020, 12:48 GMT</Text>
             <Text style={styles.headerTitle}>Corona Virus Case</Text>
-            <Text style={styles.headerNumber}>316,420</Text>
+            {data && <NumberFormat
+              // value={data.TotalConfirmed} displayType={'text'}
+              value='3687094' displayType={'text'}
+              thousandSeparator={true}
+              renderText={value => <Text style={styles.headerNumber}>{value}</Text>}
+            />}
           </View>
         </View>
         <View style={styles.chartContainer}>
-          <ChartView title='DEATHS' num='13,420' color='#E35757'></ChartView>
-          <ChartView title='RECOVERED' num='9,786' color='#6AB276'></ChartView>
+          {/* {data && <ChartView title='DEATHS' num={data.TotalDeaths} color='#E35757'></ChartView>}
+          {data && <ChartView title='RECOVERED' num={data.TotalRecovered} color='#6AB276'></ChartView>}         */}
+          {data && <ChartView title='DEATHS' num='419389' color='#E35757'></ChartView>}
+          {data && <ChartView title='RECOVERED' num='3375017' color='#6AB276'></ChartView>}
         </View>
         <View style={styles.caseContainer}>
-          <CaseView></CaseView>
+          <CaseView type='active'></CaseView>
           <View style={{ height: 10 }}></View>
-          <CaseView></CaseView>
+          <CaseView type='closed'></CaseView>
         </View>
       </View>
     </ScrollView>
@@ -58,7 +115,7 @@ const styles = StyleSheet.create({
     marginVertical: 8
   },
   headerNumber: {
-    fontSize: 45,
+    fontSize: 50,
     fontWeight: '500',
     color: '#35343A'
   },

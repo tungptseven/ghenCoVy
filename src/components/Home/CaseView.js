@@ -2,11 +2,20 @@ import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import Icon from 'react-native-vector-icons/AntDesign'
 
-const CaseView = () => {
+const renderByType = (type) => {
+  switch (type) {
+    case 'active':
+      return <Text style={styles.title}>ACTIVE CASES</Text>
+    case 'closed':
+      return <Text style={styles.title}>CLOSED CASES</Text>
+  }
+}
+
+const CaseView = ({ type }) => {
   return (
     <View style={styles.container}>
       <View style={styles.left}>
-        <Text style={styles.title}>ACTIVE CASE</Text>
+        {renderByType(type)}
         <Text style={styles.num}>205,459</Text>
       </View>
       <View style={styles.right}>

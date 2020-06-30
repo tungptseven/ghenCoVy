@@ -1,5 +1,6 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
+import NumberFormat from 'react-number-format'
 
 const ChartLine = ({ height, style, color }) => {
   return (
@@ -14,7 +15,12 @@ const ChartView = ({ title, num, color }) => {
     <View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.title}>{title}</Text>
-        <Text style={[styles.number, { color: color }]}>{num}</Text>
+        {/* <Text style={[styles.number, { color: color }]}>{num}</Text> */}
+        <NumberFormat
+          value={num} displayType={'text'}
+          thousandSeparator={true}
+          renderText={value => <Text style={[styles.number, { color: color }]}>{value}</Text>}
+        />
       </View>
       <View style={styles.chart}>
         <View style={styles.chartContainer}>
@@ -55,7 +61,7 @@ const styles = StyleSheet.create({
     fontWeight: '500'
   },
   number: {
-    fontSize: 40,
+    fontSize: 30,
     fontWeight: '500',
     color: '#E25858'
   },

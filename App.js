@@ -25,13 +25,15 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 import HomeScreen from './src/screens/HomeScreen';
 import BottomBar from './src/components/Home/BottomBar';
+import NewsScreen from './src/screens/NewsScreen';
 
 const App = () => {
   return (
     <>
       <StatusBar barStyle="dark-content" />
       <SafeAreaView style={styles.flex}>
-        <HomeScreen></HomeScreen>
+        {/* <HomeScreen></HomeScreen> */}
+        <NewsScreen></NewsScreen>
         <BottomBar></BottomBar>
       </SafeAreaView>
     </>
