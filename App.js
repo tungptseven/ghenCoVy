@@ -26,6 +26,8 @@ import {
 import HomeScreen from './src/screens/HomeScreen';
 import BottomBar from './src/components/Home/BottomBar';
 import NewsScreen from './src/screens/NewsScreen';
+import SelectCountry from './src/screens/SelectCountry';
+import CountryList from './src/screens/CountryList';
 
 const App = () => {
   return (
@@ -33,7 +35,9 @@ const App = () => {
       <StatusBar barStyle="dark-content" />
       <SafeAreaView style={styles.flex}>
         {/* <HomeScreen></HomeScreen> */}
-        <NewsScreen></NewsScreen>
+        {/* <NewsScreen></NewsScreen> */}
+        {/* <SelectCountry></SelectCountry> */}
+        <CountryList></CountryList>
         <BottomBar></BottomBar>
       </SafeAreaView>
     </>
