@@ -65,14 +65,14 @@ export default NewsScreen
 const styles = StyleSheet.create({
   flex: {
     flex: 1,
-    backgroundColor: '#F4F4F4',
+    backgroundColor: '#F2F6F8',
   },
   menu: {
     color: '#fff',
     zIndex: 100,
     position: 'absolute',
     left: 20,
-    top: 20
+    top: 0
   },
   highLightContainer: {
     height: window.height * 0.45,
